@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
-const dogRouter = require("./routes/dogs")
 app.use(express.json());
 require("dotenv").config()
+
+const dogRouter = require("./routes/dogs")
+const foodRouter = require("./routes/dog-foods")
+
 app.use(express.static('assets'))
 app.use((req, res, next) => {
   console.log(req.method)
@@ -14,6 +17,7 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use(foodRouter)
 app.use(dogRouter)
 // For testing purposes, GET /
 app.get('/', (req, res) => {
